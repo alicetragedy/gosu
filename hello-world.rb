@@ -13,6 +13,23 @@ class Player
   def draw
     @image.draw(@x, @y, 1)
   end
+
+  def move_left
+    @x -=10 if @x > 10
+  end
+
+  def move_right
+    @x += 10 if @x < 700
+  end
+
+  def move_up
+    @y -= 10 if @y > 10
+  end
+
+  def move_down
+    @y += 10 if @y < 450
+  end
+
 end
 
 class GameWindow < Gosu::Window
@@ -24,10 +41,10 @@ class GameWindow < Gosu::Window
   end
 
   def update
-    @player.x -= 10 if button_down? Gosu::KbLeft
-    @player.x += 10 if button_down? Gosu::KbRight
-    @player.y += 10 if button_down? Gosu::KbDown
-    @player.y -= 10 if button_down? Gosu::KbUp
+    @player.move_left if button_down? Gosu::KbLeft
+    @player.move_right if button_down? Gosu::KbRight
+    @player.move_up if button_down? Gosu::KbUp
+    @player.move_down if button_down? Gosu::KbDown
   end
 
   def draw
