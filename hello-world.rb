@@ -42,7 +42,7 @@ class Player
 
   def initialize(window)
     @image = Gosu::Image.new(window, "media/player.png", false)
-    @x, @y = 0, 0
+    @x, @y = 0, 450
   end
 
   def draw
@@ -90,7 +90,7 @@ class GameWindow < Gosu::Window
     @player.draw
     @cupcake.draw
     @font.draw("Caught: #{@cupcake.caught}", 10, 10, 0)
-    @font.draw("Missed: #{@cupcake.missed}", 110, 10, 0)
+    @font.draw("Missed: #{@cupcake.missed}", 130, 10, 0)
   end
 end
 
