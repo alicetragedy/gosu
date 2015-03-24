@@ -1,5 +1,40 @@
 require 'gosu'
 
+WIDTH = 750
+HEIGHT = 600
+FALLSPEED = 6
+
+class Cupcake
+  attr_reader :caught, :missed
+
+  def initialize(window)
+    @x = rand(WIDTH)
+    @y = 0
+    @image = Gosu::Image.new(window, "media/cake.png", false)
+    @caught = 0
+    @missed = 0
+  end
+
+  def draw
+    @image.draw(@x, @y, 1)
+  end
+
+  def fall(player)
+    @y += FALLSPEED
+    if @y >= HEIGHT-35
+      if Gosu::distance(@x, 0, player.x, 0) <= 85 then
+        @caught += 1
+        true
+      elsif Gosu::distance(@x, 0, player.x, 0) > 85 then
+        @missed += 1
+        true
+      end
+      @y = 0
+      @x = rand(WIDTH)
+    end
+  end
+
+end
   
 class Player
 
@@ -11,7 +46,7 @@ class Player
   end
 
   def draw
-    @image.draw(@x, @y, 1)
+    @image.draw(@x, @y, 2)
   end
 
   def move_left
@@ -38,9 +73,11 @@ class GameWindow < Gosu::Window
     self.caption = 'Hello World'
     @background_image = Gosu::Image.new(self, "media/background.png", false)
     @player = Player.new(self)
+    @cupcake = Cupcake.new(self)
   end
 
   def update
+    @cupcake.fall(@player)
     @player.move_left if button_down? Gosu::KbLeft
     @player.move_right if button_down? Gosu::KbRight
     @player.move_up if button_down? Gosu::KbUp
@@ -50,6 +87,7 @@ class GameWindow < Gosu::Window
   def draw
     @background_image.draw(0, 0, 0)
     @player.draw
+    @cupcake.draw
   end
 end
 
