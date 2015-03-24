@@ -74,6 +74,7 @@ class GameWindow < Gosu::Window
     @background_image = Gosu::Image.new(self, "media/background.png", false)
     @player = Player.new(self)
     @cupcake = Cupcake.new(self)
+    @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
   end
 
   def update
@@ -88,6 +89,8 @@ class GameWindow < Gosu::Window
     @background_image.draw(0, 0, 0)
     @player.draw
     @cupcake.draw
+    @font.draw("Caught: #{@cupcake.caught}", 10, 10, 0)
+    @font.draw("Missed: #{@cupcake.missed}", 110, 10, 0)
   end
 end
 
