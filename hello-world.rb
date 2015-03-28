@@ -2,7 +2,7 @@ require 'gosu'
 
 WIDTH = 750
 HEIGHT = 600
-FALLSPEED = 6
+SPEED = 5
 
 class Cupcake
   attr_reader :caught, :missed
@@ -20,12 +20,12 @@ class Cupcake
   end
 
   def fall(player)
-    @y += FALLSPEED
+    @y += SPEED
     if @y >= HEIGHT-35
-      if Gosu::distance(@x, 0, player.x, 0) <= 85 then
+      if Gosu::distance(@x, 0, player.x, 0) <= 50
         @caught += 1
         true
-      elsif Gosu::distance(@x, 0, player.x, 0) > 85 then
+      elsif Gosu::distance(@x, 0, player.x, 0) > 50
         @missed += 1
         true
       end
